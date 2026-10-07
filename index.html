@@ -58,6 +58,11 @@ footer{margin-top:40px;color:var(--sub);font-size:0.85em;text-align:center;}
   </div>
 
   <div class="card">
+    <b>Bank card labels (last 4 digits + nickname you assign)</b>
+    <p>If you choose to use the optional "Manage Bank Cards" feature, the App stores the last 4 digits of a card/account number you enter and a nickname you assign to it (e.g. "Card 1"), so that transactions can be matched to the correct card for display purposes. This data is stored <b>locally on your device only</b> and is never transmitted anywhere.</p>
+  </div>
+
+  <div class="card">
     <b>Bank notification content (Notification Access)</b>
     <p>The App uses the Notification Listener permission <b>solely</b> to read the content of transaction notifications from banking/e-wallet apps installed on your device, in order to automatically record transactions (amount, description, remaining balance) into your expense log — so you don't have to enter data manually.</p>
     <p>The App does <b>not</b> read, store, or share notifications unrelated to financial transactions (social media messages, personal emails, OTP codes, etc.). Notification content is processed on-device and/or sent over an encrypted HTTPS connection to a third-party AI service (see Section 2) solely to categorize the transaction; the result is then stored locally on your device only.</p>
@@ -69,7 +74,7 @@ footer{margin-top:40px;color:var(--sub);font-size:0.85em;text-align:center;}
   <table>
     <tr><th>Service</th><th>Purpose</th><th>Data Sent</th></tr>
     <tr><td>Google Gemini API</td><td>Transaction categorization (primary)</td><td>Transaction notification text</td></tr>
-    <tr><td>OpenAI API (ChatGPT)</td><td>Transaction categorization (fallback, used only if Gemini fails)</td><td>Transaction notification text</td></tr>
+    <tr><td>OpenAI API (ChatGPT, model gpt-4o-mini)</td><td>Transaction categorization (fallback, used only if Gemini fails)</td><td>Transaction notification text</td></tr>
     <tr><td>Google AdMob</td><td>In-app advertising</td><td>Advertising ID and device data per Google's policy</td></tr>
   </table>
   </div>
@@ -87,10 +92,11 @@ footer{margin-top:40px;color:var(--sub);font-size:0.85em;text-align:center;}
     <tr><td>Internet</td><td>Call the transaction categorization API (Gemini/OpenAI), load ads, update exchange rates</td></tr>
     <tr><td>Post Notifications</td><td>Send you daily savings/spending reminders</td></tr>
     <tr><td>Foreground Service</td><td>Keep the notification-tracking service running continuously, even when the app is closed</td></tr>
+    <tr><td>Foreground Service – Special Use</td><td>Required by Android to declare the specific purpose of the foreground service used for continuous notification tracking</td></tr>
     <tr><td>Receive Boot Completed</td><td>Restore reminders and the tracking service after the device restarts</td></tr>
-    <tr><td>Ignore Battery Optimizations</td><td>Prevent the system from killing the notification-tracking service in the background, ensuring no transaction is missed</td></tr>
   </table>
   </div>
+  <p>The App may also prompt you to manually exclude it from your device's battery optimization settings (via a system settings screen, not an automatically granted permission) to help ensure transaction notifications are not missed in the background. This step is optional and fully controlled by you.</p>
 
   <h2>5. Data Security</h2>
   <p>Your financial data is stored locally, protected by Android's per-app sandboxing. All data sent externally (to the categorization API) is transmitted over encrypted HTTPS.</p>
